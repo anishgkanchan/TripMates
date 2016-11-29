@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +30,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,6 +45,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private BottomSheetBehavior behavior;
     private Marker currentMarker;
     private int filter = -1;
+    Circle circle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +121,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         View bottomSheet = findViewById(R.id.design_bottom_sheet);
         behavior = BottomSheetBehavior.from(bottomSheet);
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    circle.remove();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
         bottomSheet.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -187,6 +203,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 .snippet("Best place to try out Indian cuisine near USC")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.beachmarker)));
 
+
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -195,6 +213,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
+                if(circle!=null)
+                    circle.remove();
+                circle = mMap.addCircle(new CircleOptions()
+                        .center(marker.getPosition())
+                        .radius(100)
+                        .strokeWidth(0f)
+                        .fillColor(0x550000FF));
                 return true;
             }
         });
