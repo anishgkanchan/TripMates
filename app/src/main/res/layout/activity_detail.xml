@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.enigma.gim.tripmates.DetailActivity">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="37dp">
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:padding="5dp"
+            android:id="@+id/img_detail"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            />
+        <RelativeLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:id="@+id/txt_dist"
+                android:layout_width="wrap_content"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true" 
+                android:layout_below="@id/txt_name"/>
+            <ImageView
+                android:id="@+id/img_rating"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/rating"
+                android:layout_alignParentRight="true"
+                android:layout_above="@id/txt_dist"
+                />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/timings"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Timings: 8:00am - 9:00pm"/>
+        <TextView
+            android:id="@+id/desc_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:text="Description:"/>
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem.\n Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem."/>
+        <Button
+            android:id="@+id/btn_find_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Friends"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
