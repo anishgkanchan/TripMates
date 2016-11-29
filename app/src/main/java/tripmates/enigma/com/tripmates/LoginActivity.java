@@ -18,7 +18,7 @@ public class LoginActivity extends Activity {
     LoginButton loginButton;
     Context mContext;
     CallbackManager callbackManager;
-    Button btnSignin;
+    Button btnSignin, btnSignup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +29,18 @@ public class LoginActivity extends Activity {
         loginButton.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         btnSignin = (Button)findViewById(R.id.btn_SignIn);
+        btnSignup = (Button)findViewById(R.id.btn_SignUp);
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SignupActivity.class);
                 startActivity(intent);
             }
         });
