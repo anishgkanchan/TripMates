@@ -1,6 +1,8 @@
 package tripmates.enigma.com.tripmates;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -12,10 +14,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,18 +36,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private ImageView imgSwap;
+    private ImageView imgSwap, imgFilter;
     boolean flag = true;
     private MainActivity mActivity;
     private BottomSheetBehavior behavior;
     private Marker currentMarker;
+    private int filter = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.appcolor));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         Log.i("", "---------- onCreate");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = new SupportMapFragment();
@@ -60,6 +65,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         imgSwap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
                 if (flag) {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -78,6 +86,29 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        imgFilter = (ImageView)findViewById(R.id.imgFilter);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
+        adapter.add("Restaurants");
+        adapter.add("Beaches");
+        adapter.add("Parks");
+        adapter.add("Hikes");
+        adapter.add("Museums");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose a filter");
+        builder.setSingleChoiceItems(adapter, filter, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                filter = item;
+
+            }
+        });
+        final Dialog dialog = builder.create();
+        imgFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
       //  FragmentManager fragmentManager = getSupportFragmentManager();
       //  FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
       //  fragmentTransaction.replace(R.id.map, new SupportMapFragment());
@@ -130,32 +161,31 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(new LatLng(34.0212409, -118.2891549))
                 .title("Seeley G Mudd Building")
                 .snippet("Our place of study and work")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.beachmarker)));
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(34.0206579,-118.28207))
                 .title("Leavey Library")
                 .snippet("USC's largest library")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.trekmarker)));
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(34.0209185,-118.2877258))
                 .title("Bovard Auditorium")
                 .snippet("Auditorium for special occasions")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.parkmarker)));
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(34.0243718,-118.2905299))
                 .title("Lyon Centre")
                 .snippet("The place where Trojans sweat themselves")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.foodmarker)));
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(34.0272172, -118.2913882))
                 .title("Manas Restaurant")
                 .snippet("Best place to try out Indian cuisine near USC")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.beachmarker)));
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -177,12 +207,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();
         LatLng latLng = new LatLng(latitude, longitude);
+        /*
         if(currentMarker==null) {
             currentMarker = mMap.addMarker(new MarkerOptions().position(latLng));
         }
         else {
             currentMarker.setPosition(latLng);
         }
+        */
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
       //  locationTv.setText("Latitude:" + latitude + ", Longitude:" + longitude);
