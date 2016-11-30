@@ -7,4 +7,5 @@
     <string name="facebook_app_id">326632614361485</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_people_profile">PeopleProfileActivity</string>
+    <string name="timing">Timings: %1$s - %2$s </string>
 </resources>

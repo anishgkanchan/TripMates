@@ -3,6 +3,7 @@ package tripmates.enigma.com.tripmates;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -39,7 +40,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private ImageView imgSwap, imgFilter;
+    private ImageView imgSwap, imgFilter, imgProfile;
     boolean flag = true;
     private MainActivity mActivity;
     private BottomSheetBehavior behavior;
@@ -65,6 +66,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         mActivity = this;
         imgSwap = (ImageView)findViewById(R.id.imgSwap);
+        imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, EditProfile.class);
+                startActivity(i);
+            }
+        });
 
         imgSwap.setOnClickListener(new View.OnClickListener() {
             @Override

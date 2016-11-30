@@ -82,6 +82,8 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="19sp"
+        android:padding="10dp"
         android:layout_gravity="center_horizontal|bottom"
         android:text=" connect_with_facebook" />
 

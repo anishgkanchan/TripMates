@@ -13,13 +13,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.List;
+
 
 public class BlankFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    MyApplication application;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -37,20 +39,33 @@ public class BlankFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
+        application = (MyApplication)getActivity().getApplicationContext();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
-        final LocationData[] locationDatas = new LocationData[10];
-        String names[] = new String[]{"Venice Canals", "Santa Monica Pier","Hollywood Walk of Fame", "Natural History Museum", "Gryffith Observatory", "Hollywood Sign", "LACMA", "Old Bookstore", "USC Campus", "Colosseum"};
+        List<LocationObj> locs = application.placeList;
+        final LocationData[] locationDatas = new LocationData[locs.size()];
+
 
         for (int i = 0; i < locationDatas.length; i++) {
             locationDatas[i] = new LocationData();
-            locationDatas[i].name = names[i];
-            locationDatas[i].distance = (float)(Math.random()%3);
-            locationDatas[i].img =  BitmapFactory.decodeResource(getResources(), R.drawable.location_logo);
+            locationDatas[i].name = locs.get(i).getLocName();
+            locationDatas[i].distance = (float)locs.get(i).getDist();
+            int image = 0;
+            if(locs.get(i).getType() == LocType.BEACH)
+                image = R.drawable.beachmarker;
+            else if(locs.get(i).getType() == LocType.RESTAURANT)
+                image = R.drawable.foodmarker;
+            else if(locs.get(i).getType() == LocType.HIKE)
+                image = R.drawable.trekmarker;
+            else if(locs.get(i).getType() == LocType.MUSEUM)
+                image = R.drawable.add_person;
+            else if(locs.get(i).getType() == LocType.PARK)
+                image = R.drawable.parkmarker;
+            locationDatas[i].img =  BitmapFactory.decodeResource(getResources(), image);
         }
         LocationListAdapter listAdapter = new LocationListAdapter(locationDatas, mActivity);
         ListView listView = (ListView) view.findViewById(R.id.location_list);

@@ -13,24 +13,23 @@ import android.widget.ListView;
 import java.util.List;
 
 public class FindFriendsActivity extends Activity {
-
+    MyApplication application;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_friends);
-
+        application = (MyApplication)getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("TripMates");
         toolbar.setBackgroundColor(getResources().getColor(R.color.appcolor));
-
+        List<PeopleObj> peopleList = application.peopleList;
         ListView list = (ListView) findViewById(R.id.list);
-        PersonDetails [] personDetails = new PersonDetails[10];
-        String names[] = new String[] {"Chris Martin", "Genelia D'souza", "Uma Thurman", "Mellisandre", "Slash", "Farhan Akhtar", "Micromax", "Wonder Woman", "Jackie", "Emma"};
+        PersonDetails [] personDetails = new PersonDetails[peopleList.size()];
         for (int i = 0; i < personDetails.length; i++) {
             personDetails[i] = new PersonDetails();
-            personDetails[i].personName = names[i];
-            personDetails[i].personDist = (float)Math.random()%5;
-            personDetails[i].personImage =  BitmapFactory.decodeResource(getResources(), R.drawable.add_person);
+            personDetails[i].personName = peopleList.get(i).getName();
+            personDetails[i].personDist = (float)peopleList.get(i).getDistance();
+            personDetails[i].personImage =  BitmapFactory.decodeResource(getResources(), peopleList.get(i).getUserImage());
         }
         PeopleListAdapter listAdapter = new PeopleListAdapter(personDetails, this);
         list.setAdapter(listAdapter);

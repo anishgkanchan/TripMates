@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,15 +16,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
+
 public class SignupActivity extends Activity {
-    ImageView btnaddImage, profileImg;
+    ImageView btnaddImage;
+    RoundedImageView profileImg;
+    MyApplication application;
     static final int RESULT_LOAD_IMAGE = 91;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        application = (MyApplication) getApplicationContext();
         setContentView(R.layout.activity_signup);
         btnaddImage = (ImageView)findViewById(R.id.btn_add_image);
-        profileImg = (ImageView) findViewById(R.id.img_profile);
+        profileImg = (RoundedImageView) findViewById(R.id.imgProfile);
+        if(application.profileImg!=null)
+            profileImg.setImageBitmap(BitmapFactory.decodeFile(application.profileImg));
         btnaddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +51,7 @@ public class SignupActivity extends Activity {
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
+            application.profileImg = picturePath;
             cursor.close();
             profileImg.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
