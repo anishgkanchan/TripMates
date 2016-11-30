@@ -42,7 +42,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private ImageView imgSwap, imgFilter, imgProfile;
+    private ImageView imgSwap, imgFilter, imgProfile, imgHistory;
     boolean flag = true;
     private MainActivity mActivity;
     private BottomSheetBehavior behavior;
@@ -72,6 +72,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mActivity = this;
         imgSwap = (ImageView)findViewById(R.id.imgSwap);
         imgProfile = (ImageView) findViewById(R.id.imgProfile);
+        imgHistory = (ImageView) findViewById(R.id.imgHistory);
+
+        imgHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(i);
+            }
+        });
+
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

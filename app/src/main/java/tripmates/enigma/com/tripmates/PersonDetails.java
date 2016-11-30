@@ -9,4 +9,5 @@ public class PersonDetails {
     Bitmap personImage;
     String personName;
     double personDist;
+    String desc;
 }
