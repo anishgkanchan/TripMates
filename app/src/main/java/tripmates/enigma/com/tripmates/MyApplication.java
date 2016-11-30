@@ -65,23 +65,23 @@ public class MyApplication extends Application {
         placeList.add(l);
 
         //people data
-        PeopleObj p = new PeopleObj("John Hetherman",null,null,4.20, R.drawable.add_person,21);
+        PeopleObj p = new PeopleObj("John Hetherman",null,null,4.20, R.drawable.prof2,21);
         peopleList.add(p);
-        p = new PeopleObj("William Travis",null,null,4.70, R.drawable.add_person,28);
+        p = new PeopleObj("William Travis",null,null,4.70, R.drawable.pro8,28);
         peopleList.add(p);
-        p = new PeopleObj("Robin Taylor",null,null,5.20, R.drawable.add_person,33);
+        p = new PeopleObj("Robin Taylor",null,null,5.20, R.drawable.prof4,33);
         peopleList.add(p);
-        p = new PeopleObj("Ravi Bajpai",null,null,1.80, R.drawable.add_person,17);
+        p = new PeopleObj("Ravi Bajpai",null,null,1.80, R.drawable.prof3,17);
         peopleList.add(p);
-        p = new PeopleObj("Kiley Moore",null,null,3.50, R.drawable.add_person,21);
+        p = new PeopleObj("Kiley Moore",null,null,3.50, R.drawable.prof8,21);
         peopleList.add(p);
-        p = new PeopleObj("Ireene Soo",null,null,0.90, R.drawable.add_person,19);
+        p = new PeopleObj("Ireene Soo",null,null,0.90, R.drawable.prof1,19);
         peopleList.add(p);
-        p = new PeopleObj("John Hetherman",null,null,2.70, R.drawable.add_person, 20);
+        p = new PeopleObj("John Hetherman",null,null,2.70, R.drawable.prof6, 20);
         peopleList.add(p);
-        p = new PeopleObj("Jason Texado",null,null,1.10, R.drawable.add_person,23);
+        p = new PeopleObj("Jason Texado",null,null,1.10, R.drawable.prof7,23);
         peopleList.add(p);
-        p = new PeopleObj("Ricky Wally",null,null,7.30, R.drawable.add_person, 25);
+        p = new PeopleObj("Ricky Wally",null,null,7.30, R.drawable.prof5, 25);
         peopleList.add(p);
 
 
