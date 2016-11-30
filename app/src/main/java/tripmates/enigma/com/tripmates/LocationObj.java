@@ -22,21 +22,33 @@ public class LocationObj {
         this.dist = dist;
     }
 
+    Double lat,lon;
+
     //temporary distance
     double dist;
 
-    public LocationObj(String locName, int locImage, LocType type, int rating, int openHrs, int closeHrs, double dist) {
+    public LocationObj(String locName, int locImage, LocType type, int rating, int openHrs, int closeHrs, double lat, double lon) {
         this.locName = locName;
         this.locImage = locImage;
         this.type = type;
         this.rating = rating;
         this.closeHrs = closeHrs;
         this.openHrs = openHrs;
-        this.dist = dist;
+        this.lat = lat;
+        this.lon = lon;
+       // this.dist = dist;
     }
 
     public int getLocImage() {
         return locImage;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public Double getLon() {
+        return lon;
     }
 
     public void setLocImage(int locImage) {

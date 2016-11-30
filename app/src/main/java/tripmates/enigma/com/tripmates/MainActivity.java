@@ -37,6 +37,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
@@ -47,10 +49,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker currentMarker;
     private int filter = -1;
     Circle circle;
+    MyApplication application;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        application = (MyApplication)getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -182,6 +187,17 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
 
+
+        List<LocationObj> a = application.placeList;
+
+        for (LocationObj obj: a) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(obj.getLat(), obj.getLon()))
+                    .title(obj.getLocName())
+                    .icon(BitmapDescriptorFactory.fromResource(obj.getLocImage())));
+
+        }
+/*
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(34.0212409, -118.2891549))
                 .title("Seeley G Mudd Building")
@@ -212,7 +228,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 .snippet("Best place to try out Indian cuisine near USC")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.beachmarker)));
 
-
+*/
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
