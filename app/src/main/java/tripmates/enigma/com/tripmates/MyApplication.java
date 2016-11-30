@@ -32,7 +32,7 @@ public class MyApplication extends Application {
         placeList.add(l);
         l = new LocationObj("Pasta Roma",R.drawable.foodmarker,LocType.RESTAURANT,3,9,22,34.011903, -118.277697);
         placeList.add(l);
-        l = new LocationObj("Natural History Museum ",R.drawable.museummarker,LocType.MUSEUM, 5, 9, 17, 34.034169, -118.284263);
+        l = new LocationObj("Natural History Museum ",R.drawable.nhmuseum,LocType.MUSEUM, 5, 9, 17, 34.034169, -118.284263);
         placeList.add(l);
         l.description = "Natural History Museum of Los Angeles County. NHM has amassed one of the world's most extensive and valuable collections of natural and cultural history - more than 35 million objects, some as old as 4.5 billion years.";
         l = new LocationObj("Grinder",R.drawable.foodmarker,LocType.RESTAURANT,2,10,22,34.032711, 118.298682);

@@ -62,7 +62,7 @@ public class BlankFragment extends Fragment {
             else if(locs.get(i).getType() == LocType.HIKE)
                 image = R.drawable.trekmarker;
             else if(locs.get(i).getType() == LocType.MUSEUM)
-                image = R.drawable.add_person;
+                image = R.drawable.museummarker;
             else if(locs.get(i).getType() == LocType.PARK)
                 image = R.drawable.parkmarker;
             locationDatas[i].img =  BitmapFactory.decodeResource(getResources(), image);

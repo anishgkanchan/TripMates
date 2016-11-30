@@ -18,6 +18,15 @@ public class PeopleObj {
     }
 
     int userImage;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     int age;
     //temporary
     double distance;

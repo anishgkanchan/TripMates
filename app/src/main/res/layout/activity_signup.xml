@@ -20,7 +20,7 @@
             android:layout_height="300dp"
             android:layout_width="300dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/background"
+            android:src="@drawable/blankprofile"
             />
         <ImageView
             android:id="@+id/btn_add_image"
@@ -28,7 +28,7 @@
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/add_person"
+            android:src="@drawable/pencil"
             />
     </RelativeLayout>
 

@@ -3,13 +3,15 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:padding="10dp"
     android:layout_height="match_parent">
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:riv_corner_radius="25dp"
         android:id="@+id/img_person"
         android:layout_weight="0"
-
         android:src="@drawable/add_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         />
     <LinearLayout
         android:orientation="vertical"
@@ -35,6 +37,7 @@
     <ImageView
         android:id="@+id/img_add_person"
         android:layout_weight="0"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/add_person"
         android:layout_width="25dp"
         android:layout_height="25dp" />

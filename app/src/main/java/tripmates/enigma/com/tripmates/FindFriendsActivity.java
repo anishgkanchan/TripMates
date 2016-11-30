@@ -28,7 +28,7 @@ public class FindFriendsActivity extends Activity {
         for (int i = 0; i < personDetails.length; i++) {
             personDetails[i] = new PersonDetails();
             personDetails[i].personName = peopleList.get(i).getName();
-            personDetails[i].personDist = (float)peopleList.get(i).getDistance();
+            personDetails[i].personDist = peopleList.get(i).getDistance();
             personDetails[i].personImage =  BitmapFactory.decodeResource(getResources(), peopleList.get(i).getUserImage());
         }
         PeopleListAdapter listAdapter = new PeopleListAdapter(personDetails, this);
@@ -38,6 +38,7 @@ public class FindFriendsActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i =new Intent(FindFriendsActivity.this, PeopleProfileActivity.class);
+                i.putExtra("position",position);
                 startActivity(i);
             }
         });
