@@ -26,6 +26,9 @@ public class BlankFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Activity mActivity;
+    LocationListAdapter listAdapter;
+    LocationData[] locationDatas;
+    ListView listView;
     public BlankFragment() {
 
     }
@@ -46,10 +49,30 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
-        List<LocationObj> locs = application.placeList;
-        final LocationData[] locationDatas = new LocationData[locs.size()];
+        List<LocationObj> locs = ((MainActivity)getActivity()).a;
 
 
+        locationDatas = updateList(locs);
+
+        listAdapter = new LocationListAdapter(locationDatas, mActivity);
+        listView = (ListView) view.findViewById(R.id.location_list);
+        listView.setAdapter(listAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mActivity, DetailActivity.class);
+                intent.putExtra("name",locationDatas[position].name);
+                intent.putExtra("distance",locationDatas[position].distance);
+                startActivity(intent);
+            }
+        });
+
+        return view;
+    }
+
+    LocationData[] updateList( List<LocationObj> locs){
+        LocationData[] locationDatas = new LocationData[locs.size()];
         for (int i = 0; i < locationDatas.length; i++) {
             locationDatas[i] = new LocationData();
             locationDatas[i].name = locs.get(i).getLocName();
@@ -67,22 +90,7 @@ public class BlankFragment extends Fragment {
                 image = R.drawable.parkmarker;
             locationDatas[i].img =  BitmapFactory.decodeResource(getResources(), image);
         }
-        LocationListAdapter listAdapter = new LocationListAdapter(locationDatas, mActivity);
-        ListView listView = (ListView) view.findViewById(R.id.location_list);
-        listView.setAdapter(listAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mActivity, DetailActivity.class);
-                intent.putExtra("name",locationDatas[position].name);
-                intent.putExtra("distance",locationDatas[position].distance);
-                startActivity(intent);
-            }
-        });
-
-        return view;
+        return locationDatas;
     }
-
 
 }

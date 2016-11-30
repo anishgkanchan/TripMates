@@ -1,85 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".DetailActivity">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="37dp">
-    </android.support.v7.widget.Toolbar>
+    tools:context=".DetailActivity"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <ImageView
-            android:padding="5dp"
-            android:id="@+id/img_detail"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            />
+    <ImageView
+        android:padding="10dp"
+        android:id="@+id/img_detail"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
+
         <RelativeLayout
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="fill_parent">
             <TextView
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="23sp"
                 android:textStyle="bold"
+                android:textColor="@color/lightGrey"
+                android:layout_marginRight="40dp"
                 android:layout_marginBottom="10dp"
                 android:layout_alignParentLeft="true" />
+
+            <ImageView
+
+                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/txt_name"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imgDirection"
+                android:src="@drawable/direction"/>
+
             <TextView
                 android:id="@+id/txt_dist"
                 android:layout_width="wrap_content"
                 android:textSize="20sp"
+                android:textColor="@color/lightGrey"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true" 
                 android:layout_below="@id/txt_name"/>
-            <ImageView
-                android:id="@+id/img_rating"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:src="@drawable/rating"
-                android:layout_alignParentRight="true"
-                android:layout_above="@id/txt_dist"
-                />
-        </RelativeLayout>
+
+
         <TextView
             android:id="@+id/timings"
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Timings: 8:00am - 9:00pm"/>
+            android:text="Timings: 8:00am - 9:00pm"
+            android:textColor="@color/lightGrey"
+            android:layout_below="@id/txt_dist"/>
+
+        <RatingBar
+            android:rating="4"
+                android:layout_marginTop="10dp"
+            android:theme="@style/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBarDetail"
+            android:layout_below="@id/timings"/>
+        <ImageView
+            android:layout_marginTop="10dp"
+
+            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ratingBarDetail"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/imgInterestedDetail"
+            android:src="@drawable/heart"/>
         <TextView
             android:id="@+id/desc_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_margin="10dp"
-            android:text="Description:"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Description:"
+            android:textColor="@color/lightGrey"
+            android:layout_below="@id/ratingBarDetail"/>
         <TextView
             android:id="@+id/desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem.\n Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem."/>
+            android:textColor="@color/lightGrey"
+            android:text="Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem.\n Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem."
+            android:layout_below="@+id/desc_head"/>
         <Button
             android:id="@+id/btn_find_friends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find Friends"
+            android:padding="10dp"
             android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorAccent"
+
+            android:textColor="@color/lightGrey"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/desc"
             />
+        </RelativeLayout>
     </LinearLayout>
 
 
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
+</ScrollView>

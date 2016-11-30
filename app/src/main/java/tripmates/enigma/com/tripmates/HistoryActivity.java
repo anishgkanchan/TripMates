@@ -20,6 +20,7 @@ public class HistoryActivity extends AppCompatActivity {
         application = (MyApplication)getApplicationContext();
         List<PeopleObj> peopleList = application.peopleList;
         ListView list = (ListView) findViewById(R.id.list);
+
         PersonDetails [] personDetails = new PersonDetails[2];
         personDetails[0] = new PersonDetails();
         personDetails[0].personName = peopleList.get(3).getName();

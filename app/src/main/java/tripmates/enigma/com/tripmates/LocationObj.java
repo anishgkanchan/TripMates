@@ -36,7 +36,6 @@ public class LocationObj {
         this.openHrs = openHrs;
         this.lat = lat;
         this.lon = lon;
-       // this.dist = dist;
     }
 
     public int getLocImage() {

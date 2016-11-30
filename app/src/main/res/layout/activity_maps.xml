@@ -85,7 +85,8 @@
 
         <TextView
             android:id="@+id/bottomsheet_text"
-            android:textSize="30dp"
+            android:textSize="28dp"
+            android:layout_marginRight="35dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Introducing Bottom Sheets"
@@ -102,13 +103,31 @@
             android:layout_alignParentStart="true"
             android:isIndicator="true"/>
         <ImageView
+            android:layout_marginTop="5dp"
+
+            android:layout_marginRight="5dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignBaseline="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/imgInterested"
             android:src="@drawable/heart"/>
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/imgInterested"
+
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/imgInfo"
+            android:src="@drawable/info"/>
+
+
+
         <TextView
             android:id="@+id/txtType"
             android:textSize="15dp"

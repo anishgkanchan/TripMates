@@ -13,6 +13,7 @@ import java.util.List;
 public class MyApplication extends Application {
     private static MyApplication application ;
     public static List<LocationObj> placeList = new ArrayList<LocationObj>();
+    public static List<String> interestedLocations = new ArrayList<String>();
     static List<PeopleObj> peopleList = new ArrayList<PeopleObj>();
     public static String profileImg = null;
     @Override

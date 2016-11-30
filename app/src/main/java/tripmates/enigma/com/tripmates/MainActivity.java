@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 
@@ -37,26 +38,34 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private ImageView imgSwap, imgFilter, imgProfile, imgHistory;
+    private ImageView imgSwap, imgFilter, imgProfile, imgHistory, imgInfo, imgInterested;
     boolean flag = true;
     private MainActivity mActivity;
     private BottomSheetBehavior behavior;
     private Marker currentMarker;
-    private int filter = -1;
+    private int filter = 0;
     Circle circle;
     MyApplication application;
+    List<LocationObj> a;
+    BlankFragment fragmentInstance = null;
+    static double lat, lon;
+    LocationObj selectedLoc = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        application = (MyApplication)getApplicationContext();
 
+        application = (MyApplication)getApplicationContext();
+        a = application.placeList;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         Log.i("", "---------- onCreate");
@@ -73,6 +82,31 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         imgSwap = (ImageView)findViewById(R.id.imgSwap);
         imgProfile = (ImageView) findViewById(R.id.imgProfile);
         imgHistory = (ImageView) findViewById(R.id.imgHistory);
+        imgInfo = (ImageView) findViewById(R.id.imgInfo);
+        imgInterested = (ImageView) findViewById(R.id.imgInterested);
+        imgInterested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(application.interestedLocations.contains(selectedLoc.getLocName())) {
+                    application.interestedLocations.remove(selectedLoc.getLocName());
+                    imgInterested.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.heart));
+                }
+                else {
+                    application.interestedLocations.add(selectedLoc.getLocName());
+
+                    imgInterested.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.heart_golden));//setBackgroundResource(R.drawable.heart_golden);
+                }
+            }
+        });
+        imgInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, DetailActivity.class);
+                intent.putExtra("name",selectedLoc.getLocName());
+                intent.putExtra("distance",selectedLoc.getDist());
+                startActivity(intent);
+            }
+        });
 
         imgHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,12 +131,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
                 if (flag) {
+
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.map, BlankFragment.newInstance("", ""));
+                    fragmentInstance = BlankFragment.newInstance("", "");
+                    fragmentTransaction.replace(R.id.map, fragmentInstance);
                     flag = false;
                     fragmentTransaction.commit();
                 } else {
+                    fragmentInstance = null;
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     SupportMapFragment mapFragment = new SupportMapFragment();
@@ -110,6 +147,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     flag = true;
                     fragmentTransaction.commit();
                     mapFragment.getMapAsync(mActivity);
+                    updateMarkers();
                 }
             }
         });
@@ -117,6 +155,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         imgFilter = (ImageView)findViewById(R.id.imgFilter);
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice);
+        adapter.add("All");
         adapter.add("Restaurants");
         adapter.add("Beaches");
         adapter.add("Parks");
@@ -127,7 +166,31 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         builder.setSingleChoiceItems(adapter, filter, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 filter = item;
-
+                a = new ArrayList<LocationObj>();
+                for(LocationObj obj:application.placeList){
+                    if (filter==0) {
+                        a.add(obj);
+                    } else if (filter == 1 && obj.getType()==LocType.RESTAURANT) {
+                        a.add(obj);
+                    } else if (filter == 2 && obj.getType()==LocType.BEACH) {
+                        a.add(obj);
+                    } else if (filter == 3 && obj.getType()==LocType.PARK) {
+                        a.add(obj);
+                    } else if (filter == 4 && obj.getType()==LocType.HIKE) {
+                        a.add(obj);
+                    } else if (filter == 5 && obj.getType()==LocType.MUSEUM) {
+                        a.add(obj);
+                    }
+                }
+                if(flag)
+                    updateMarkers();
+                else {
+                    fragmentInstance.listAdapter = new LocationListAdapter(fragmentInstance.updateList(a), mActivity);
+                    fragmentInstance.listView.setAdapter(fragmentInstance.listAdapter);
+                    fragmentInstance.listAdapter.notifyDataSetChanged();
+                    Log.d("Testing","---------- control reached here");
+                }
+                dialog.dismiss();
             }
         });
         final Dialog dialog = builder.create();
@@ -198,15 +261,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager.requestLocationUpdates(bestProvider, 20000, 0, this);
 
 
-        List<LocationObj> a = application.placeList;
+        updateMarkers();
 
-        for (LocationObj obj: a) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(obj.getLat(), obj.getLon()))
-                    .title(obj.getLocName())
-                    .icon(BitmapDescriptorFactory.fromResource(obj.getLocImage())));
 
-        }
 /*
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(34.0212409, -118.2891549))
@@ -247,6 +304,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 ((TextView)findViewById(R.id.bottomsheet_text)).setText(marker.getTitle());
                 if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
                     behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                }
+
+                for (LocationObj obj:a){
+                    if (marker.getTitle().equals(obj.getLocName()))
+                    {
+                        ((RatingBar) findViewById(R.id.ratingBar)).setNumStars(obj.getRating());
+                        ((TextView) findViewById(R.id.txtHoursValue)).setText(obj.getOpenHrs() + "");
+                        ((TextView) findViewById(R.id.txtTypeValue)).setText(obj.getType().toString());
+                        selectedLoc = obj;
+                        break;
+                    }
                 }
                 if(circle!=null)
                     circle.remove();
@@ -260,13 +329,35 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    void updateMarkers() {
+        mMap.clear();
+        for (LocationObj obj: a) {
+
+            int image = -1;
+            if (obj.getType()==LocType.BEACH)
+                image = R.drawable.beachmarker;
+            else if (obj.getType()==LocType.MUSEUM)
+                image = R.drawable.museummarker;
+            else if (obj.getType()==LocType.RESTAURANT)
+                image = R.drawable.foodmarker;
+            else if (obj.getType()==LocType.PARK)
+                image = R.drawable.parkmarker;
+            else if (obj.getType()==LocType.HIKE)
+                image = R.drawable.trekmarker;
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(obj.getLat(), obj.getLon()))
+                    .title(obj.getLocName())
+                    .icon(BitmapDescriptorFactory.fromResource(image)));
+
+        }
+    }
     @Override
     public void onLocationChanged(Location location) {
         Log.i("","---------- onLocationChanged");
       //  TextView locationTv = (TextView) findViewById(R.id.latlongLocation);
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
-        LatLng latLng = new LatLng(latitude, longitude);
+        lat = location.getLatitude();
+        lon = location.getLongitude();
+        LatLng latLng = new LatLng(lat, lon);
         /*
         if(currentMarker==null) {
             currentMarker = mMap.addMarker(new MarkerOptions().position(latLng));
