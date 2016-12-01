@@ -20,8 +20,8 @@ public class FindFriendsActivity extends Activity {
         setContentView(R.layout.activity_find_friends);
         application = (MyApplication)getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("TripMates");
-        toolbar.setBackgroundColor(getResources().getColor(R.color.appcolor));
+        toolbar.setTitle("Discover new people");
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         List<PeopleObj> peopleList = application.peopleList;
         ListView list = (ListView) findViewById(R.id.list);
         PersonDetails [] personDetails = new PersonDetails[peopleList.size()];

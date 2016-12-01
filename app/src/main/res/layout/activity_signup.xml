@@ -91,6 +91,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:password="true"
         android:padding="10dp"
         android:hint="Enter a password"/>
     <EditText
@@ -99,6 +100,7 @@
         android:layout_height="wrap_content"
         android:background="#55FFFFFF"
         android:textSize="18sp"
+        android:password="true"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -125,7 +127,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="#55FFFFFF"
-        android:text="Create Account"/>
+        android:text="Create Account"
+        android:id="@+id/btn_register"/>
         </LinearLayout>
 
 </LinearLayout>

@@ -36,16 +36,22 @@ public class DetailActivity extends Activity {
             }
         }
         final ImageView imgInterested = (ImageView) findViewById(R.id.imgInterestedDetail);
+
+        if(application.interestedLocations.contains(currPlace.getLocName()))
+            imgInterested.setImageResource(R.drawable.heart_golden);
+        else
+            imgInterested.setImageResource(R.drawable.heart);
+
         imgInterested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(application.interestedLocations.contains(currPlace.getLocName())) {
                     application.interestedLocations.remove(currPlace.getLocName());
-                    imgInterested.setBackground(ContextCompat.getDrawable(mContext, R.drawable.heart));
+                    imgInterested.setImageResource(R.drawable.heart);
                 }
                 else {
                     application.interestedLocations.add(currPlace.getLocName());
-                    imgInterested.setBackground(ContextCompat.getDrawable(mContext, R.drawable.heart_golden));
+                    imgInterested.setImageResource(R.drawable.heart_golden);
                 }
             }
         });

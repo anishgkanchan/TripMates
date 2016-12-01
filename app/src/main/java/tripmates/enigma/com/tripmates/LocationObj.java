@@ -14,6 +14,7 @@ public class LocationObj {
     int closeHrs;
     int locImage;
     String description = null;
+    int crowdDensity;
     public double getDist() {
         return dist;
     }
@@ -27,7 +28,7 @@ public class LocationObj {
     //temporary distance
     double dist;
 
-    public LocationObj(String locName, int locImage, LocType type, int rating, int openHrs, int closeHrs, double lat, double lon) {
+    public LocationObj(String locName, int locImage, LocType type, int rating, int openHrs, int closeHrs, double lat, double lon, int crowdDensity, double distance) {
         this.locName = locName;
         this.locImage = locImage;
         this.type = type;
@@ -36,6 +37,15 @@ public class LocationObj {
         this.openHrs = openHrs;
         this.lat = lat;
         this.lon = lon;
+        this.crowdDensity = crowdDensity;
+        this.dist = distance;
+    }
+
+    public double getDistance() {
+        return dist;
+    }
+    public int getCrowdDensity() {
+        return crowdDensity;
     }
 
     public int getLocImage() {

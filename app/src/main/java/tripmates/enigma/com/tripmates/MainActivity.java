@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -89,12 +90,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if(application.interestedLocations.contains(selectedLoc.getLocName())) {
                     application.interestedLocations.remove(selectedLoc.getLocName());
-                    imgInterested.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.heart));
+                    imgInterested.setImageResource(R.drawable.heart);
                 }
                 else {
                     application.interestedLocations.add(selectedLoc.getLocName());
 
-                    imgInterested.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.heart_golden));//setBackgroundResource(R.drawable.heart_golden);
+                    imgInterested.setImageResource(R.drawable.heart_golden);//setBackgroundResource(R.drawable.heart_golden);
                 }
             }
         });
@@ -214,6 +215,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                     circle.remove();
                 }
+                if(newState == BottomSheetBehavior.STATE_EXPANDED) {
+                    if(application.interestedLocations.contains(selectedLoc.getLocName()))
+                        imgInterested.setImageResource(R.drawable.heart_golden);
+                    else
+                        imgInterested.setImageResource(R.drawable.heart);
+                }
             }
 
             @Override
@@ -311,7 +318,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     if (marker.getTitle().equals(obj.getLocName()))
                     {
                         ((RatingBar) findViewById(R.id.ratingBar)).setNumStars(obj.getRating());
-                        ((TextView) findViewById(R.id.txtHoursValue)).setText(obj.getOpenHrs() + "");
+                      //  ((TextView) findViewById(R.id.txtHoursValue)).setText(obj.getOpenHrs() + "");
                         ((TextView) findViewById(R.id.txtTypeValue)).setText(obj.getType().toString());
                         selectedLoc = obj;
                         break;
@@ -319,11 +326,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 if(circle!=null)
                     circle.remove();
+                int color = -1;
+                if (selectedLoc.getCrowdDensity()==1)
+                    color = 0x5500FF00;
+                else if (selectedLoc.getCrowdDensity()==2)
+                    color = 0x55FFFF00;
+                else
+                    color = 0x55FF0000;
+
                 circle = mMap.addCircle(new CircleOptions()
                         .center(marker.getPosition())
                         .radius(100)
                         .strokeWidth(0f)
-                        .fillColor(0x550000FF));
+                        .fillColor(color));
                 return true;
             }
         });

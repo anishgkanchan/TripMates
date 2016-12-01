@@ -7,4 +7,7 @@
     <color name="golden"> #FFD700</color>
     <color name="lightGrey"> #d3d3d3</color>
 
+    <color name="lightRed"> #33FF0000</color>
+    <color name="lightYellow"> #33FFFF00</color>
+    <color name="lightGreen"> #3300FF00</color>
 </resources>

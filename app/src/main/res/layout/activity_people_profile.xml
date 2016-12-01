@@ -1,88 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PeopleProfileActivity"
+    >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".PeopleProfileActivity">
+    android:gravity="center">
 
     <com.makeramen.roundedimageview.RoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/img_person"
         app:riv_corner_radius="50dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="250dp"
+        android:layout_width="250dp"
         android:scaleType="fitCenter"
+        android:padding="10dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/add_person"
         />
 
-    <View android:layout_height="1dp"
-        android:paddingTop="5dp"
-        android:layout_width="match_parent"
-        android:background="#000000"
-        />
 
-    <TextView
-        android:id="@+id/name_age"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Anish, 23"
-        android:textSize="22sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_height="wrap_content"
-        android:text="0.4 miles away"/>
+            android:background="@color/colorPrimary"
+            android:gravity="center">
 
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="22sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:lines="4"
-        android:text="I am a fun-loving person, Love to go out hiking, eating and swimming."/>
+        <TextView
+            android:id="@+id/name_age"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGrey"
+            android:text="Anish, 23"
+            android:textSize="22sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:textSize="22sp"
-        android:layout_height="wrap_content"
-        android:text="Testimonials"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGrey"
+            android:text="0.4 miles away"/>
 
-    <ListView
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/list_testionials"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ></ListView>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="22sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGrey"
+            android:text="Bio"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/lightGrey"
+            android:lines="3"
+            android:text="I am a fun-loving person, Love to go out hiking, eating and swimming."/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Add testimonial"
-        android:enabled="false"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="22sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/lightGrey"
+            android:text="Testimonials"/>
 
+        <ListView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/list_testionials"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/lightGrey"
+            ></ListView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="Add testimonial"
+            android:textAllCaps="false"
+            android:background="@color/colorAccent"
+            android:textColor="@color/lightGrey"
+            android:enabled="false"/>
+    </LinearLayout>
 </LinearLayout>
+    </ScrollView>

@@ -24,11 +24,11 @@ public class HistoryActivity extends AppCompatActivity {
         PersonDetails [] personDetails = new PersonDetails[2];
         personDetails[0] = new PersonDetails();
         personDetails[0].personName = peopleList.get(3).getName();
-        personDetails[0].desc ="You matched for a trip to Griffith Park";
+        personDetails[0].desc ="You matched for a trip to Natural History Museum";
         personDetails[0].personImage =  BitmapFactory.decodeResource(getResources(), peopleList.get(3).getUserImage());
         personDetails[1] = new PersonDetails();
         personDetails[1].personName = peopleList.get(4).getName();
-        personDetails[1].desc ="You matched for a trip to Venice Beach";
+        personDetails[1].desc ="You matched for a trip to Natural History Museum";
         personDetails[1].personImage =  BitmapFactory.decodeResource(getResources(), peopleList.get(4).getUserImage());
         HistoryListAdapter listAdapter = new HistoryListAdapter(personDetails, this);
         list.setAdapter(listAdapter);

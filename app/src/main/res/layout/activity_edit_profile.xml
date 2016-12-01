@@ -74,6 +74,7 @@
         android:background="#55FFFFFF"
         android:textSize="18sp"
         android:padding="10dp"
+        android:text="Just a regular fun guy!"
         android:hint="Say something about yourself"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
